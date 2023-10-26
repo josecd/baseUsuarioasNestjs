@@ -5,7 +5,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 @Entity({ name: 'auth_group' })
 export class AuthGroup {
   @PrimaryGeneratedColumn()
-  id: bigint;
+  id: number;
   @Column()
   name: string;
   @Column()

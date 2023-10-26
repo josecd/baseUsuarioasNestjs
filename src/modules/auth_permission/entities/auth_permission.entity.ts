@@ -13,7 +13,7 @@ import {
 @Entity({ name: 'auth_permission' })
 export class AuthPermission {
   @PrimaryGeneratedColumn()
-  id: bigint;
+  id: number;
   @Column()
   name: string;
   @Column()

@@ -1,15 +1,22 @@
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { CreateModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
-
+import { Modules } from './entities/module.entity';
 @Injectable()
 export class ModulesService {
+  constructor(
+    @InjectRepository(Modules) private moduleRepositorio: Repository<Modules>,
+  ) {}
+
   create(createModuleDto: CreateModuleDto) {
     return 'This action adds a new module';
   }
 
-  findAll() {
-    return `This action returns all modules`;
+  async findAll() {
+    const data = await this.moduleRepositorio.find();
+    return data;
   }
 
   findOne(id: number) {

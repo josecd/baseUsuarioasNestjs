@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @Render('inicio.hbs')
+  // @Render('inicio.hbs')
   getHello() {
     console.log('entra');
   }

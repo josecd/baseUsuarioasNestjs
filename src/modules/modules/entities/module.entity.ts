@@ -2,9 +2,9 @@ import { ContentType } from 'src/modules/content_type/entities/content_type.enti
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'modules' })
-export class Module {
+export class Modules {
   @PrimaryGeneratedColumn()
-  id: bigint;
+  id: number;
   @Column()
   name: string;
   @Column({ unique: true })
@@ -27,8 +27,6 @@ export class Module {
   created_at: Date;
   @Column({ default: '1' })
   is_active: string;
-  @Column()
-  content_type_id: string;
   @ManyToOne(() => ContentType, (cont) => cont.module)
   content: ContentType;
 }
