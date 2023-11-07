@@ -1,7 +1,7 @@
-import { ContentType } from 'src/modules/content_type/entities/content_type.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { ContentType } from "src/modules/content_type/entities/content_type.entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 
-@Entity({ name: 'modules' })
+@Entity({ name: "modules" })
 export class Modules {
   @PrimaryGeneratedColumn()
   id: number;
@@ -11,21 +11,21 @@ export class Modules {
   idStr: string;
   @Column({ unique: true })
   title: string;
-  @Column()
+  @Column({ nullable: true })
   subtitle: string;
   @Column()
   type: string;
-  @Column()
+  @Column({ nullable: true })
   icon: string;
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   link: string;
-  @Column()
+  @Column({ nullable: true })
   parent: number;
-  @Column()
+  @Column({ nullable: true })
   codename: string;
-  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   created_at: Date;
-  @Column({ default: '1' })
+  @Column({ default: "1" })
   is_active: string;
   @ManyToOne(() => ContentType, (cont) => cont.module)
   content: ContentType;

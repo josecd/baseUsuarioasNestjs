@@ -1,8 +1,8 @@
-import { AuthPermission } from 'src/modules/auth_permission/entities/auth_permission.entity';
-import { User } from 'src/modules/users/entities/user.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { AuthPermission } from "src/modules/auth_permission/entities/auth_permission.entity";
+import { User } from "src/modules/users/entities/user.entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
 
-@Entity({ name: 'auth_group' })
+@Entity({ name: "auth_group" })
 export class AuthGroup {
   @PrimaryGeneratedColumn()
   id: number;

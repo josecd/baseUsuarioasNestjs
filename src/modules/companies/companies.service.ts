@@ -1,26 +1,50 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { CreateCompanyDto } from "./dto/create-company.dto";
+import { UpdateCompanyDto } from "./dto/update-company.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Company } from "./entities/company.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class CompaniesService {
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
+  constructor(
+    @InjectRepository(Company) private companyRepositorio: Repository<Company>
+  ) {}
+  async create(createCompanyDto: CreateCompanyDto) {
+    const newCompany = await this.companyRepositorio.create(createCompanyDto);
+    await this.companyRepositorio.save(newCompany);
+    return newCompany;
   }
 
-  findAll() {
-    return `This action returns all companies`;
+  async update(id: number, updateCompanyDto: UpdateCompanyDto) {
+    const companyFound = await this.companyRepositorio.findOne({
+      where: {
+        id
+      }
+    });
+    if (!companyFound) {
+      return new HttpException("Company no found", HttpStatus.NOT_FOUND);
+    } else {
+      const updateReporte = Object.assign(companyFound, updateCompanyDto);
+      return this.companyRepositorio.save(updateReporte);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  async remove(id: number) {
+    const companyFound = await this.companyRepositorio.findOne({
+      where: {
+        id: id
+      }
+    });
+    if (!companyFound) {
+      return new HttpException("Company no found", HttpStatus.NOT_FOUND);
+    } else {
+      const updateReporte = Object.assign(companyFound, { is_active: 0 });
+      return this.companyRepositorio.save(updateReporte);
+    }
   }
-
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  async getAllCompany() {
+    const companyFound = await this.companyRepositorio.find();
+    return companyFound;
   }
 }

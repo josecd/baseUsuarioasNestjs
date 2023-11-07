@@ -1,17 +1,17 @@
-import { Exclude } from 'class-transformer';
-import { AuthGroup } from 'src/modules/auth_group/entities/auth_group.entity';
-import { AuthPermission } from 'src/modules/auth_permission/entities/auth_permission.entity';
-import { Company } from 'src/modules/companies/entities/company.entity';
+import { Exclude } from "class-transformer";
+import { AuthGroup } from "src/modules/auth_group/entities/auth_group.entity";
+import { AuthPermission } from "src/modules/auth_permission/entities/auth_permission.entity";
+import { Company } from "src/modules/companies/entities/company.entity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToMany,
-  JoinTable,
-} from 'typeorm';
+  JoinTable
+} from "typeorm";
 
-@Entity({ name: 'users' })
+@Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,19 +22,19 @@ export class User {
   @Column()
   @Exclude()
   password: string;
-  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   last_login: string;
-  @Column()
+  @Column({ default: "0" })
   is_superuser: number;
-  @Column()
+  @Column({ default: "0" })
   is_staff: number;
-  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   created_at: Date;
-  @Column({ default: '1' })
+  @Column({ default: "1" })
   is_active: string;
   @ManyToMany(
     () => AuthPermission,
-    (permission: AuthPermission) => permission.user,
+    (permission: AuthPermission) => permission.user
   )
   @JoinTable()
   public permissions: AuthPermission[];

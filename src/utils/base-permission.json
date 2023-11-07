@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Puede ver ",
+        "codename": "can_view_"
+    },
+    {
+        "name": "Puede agregar ",
+        "codename": "can_add_"
+    },
+    {
+        "name": "Puede editar ",
+        "codename": "can_change _"
+    }
+]

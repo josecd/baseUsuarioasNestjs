@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -9,9 +10,8 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { AuthGuard } from './auth.guard';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -27,12 +27,14 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.correo, signInDto.clave);
+    return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
-  // @HttpCode(HttpStatus.OK)
-  // @Post('check')
-  // check(@Body() signInDto: Record<string, any>) {
-  //   return this.authService.signIn(signInDto.correo, signInDto.clave);
-  // }
+  @HttpCode(HttpStatus.OK)
+  @Post('register')
+  register(@Body() register:RegisterDto) {
+    return this.authService.register(register);
+  }
+
+
 }
